@@ -1,0 +1,32 @@
+/* North Karnataka theme: kumkum red, turmeric gold, Hampi stone. Glassmorphism surfaces. */
+:root{--kum:#B3261E;--kum2:#8E1423;--gold:#F5B301;--maroon:#7A1020;--stone:#2E0B11;--cream:#FFF4DC;--ink:#2B1810;--mute:#6B5548;--green:#1F7A4D;
+--paper:rgba(255,255,255,.62);--bg:#FFF4DC;--line:rgba(122,16,32,.16);--shadow:0 8px 30px rgba(122,16,32,.13),inset 0 1px 0 rgba(255,255,255,.85);--r:16px;--w:1120px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 Inter,"Noto Sans Kannada",system-ui,sans-serif;color:var(--ink);min-height:100vh;
+background:radial-gradient(55rem 38rem at 8% -8%,rgba(245,179,1,.60),transparent 62%),radial-gradient(48rem 36rem at 100% 2%,rgba(179,38,30,.38),transparent 60%),radial-gradient(60rem 46rem at 50% 108%,rgba(122,16,32,.32),transparent 62%),var(--cream);background-attachment:fixed}
+h1,h2,h3{font-family:Outfit,Inter,"Noto Sans Kannada",sans-serif;line-height:1.15;margin:0 0 .6rem;letter-spacing:-.02em;color:var(--stone)}
+h1{font-size:clamp(2rem,5vw,3.3rem);font-weight:800}h2{font-size:1.5rem;font-weight:700}h3{font-size:1.1rem;font-weight:600}
+p{margin:0 0 .8rem}a{color:var(--kum2)}.mute{color:var(--mute)}.container{max-width:var(--w);margin:0 auto;padding:0 1.25rem}
+main{padding:2rem 0 4rem;min-height:60vh}section{margin-bottom:2.5rem}
+:focus-visible{outline:3px solid var(--maroon);outline-offset:2px;box-shadow:0 0 0 5px rgba(245,179,1,.7)}
+.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:#fff;padding:.5rem 1rem;z-index:99;border:2px solid var(--maroon);border-radius:8px}
+/* glass surfaces */
+.card,.filters,.tile,.note,.state,.site-header,.hero,.toast{background:var(--paper);-webkit-backdrop-filter:blur(18px) saturate(165%);backdrop-filter:blur(18px) saturate(165%);border:1px solid rgba(255,255,255,.75);box-shadow:var(--shadow)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.card,.filters,.tile,.note,.state,.site-header,.hero,.toast{background:rgba(255,250,240,.96)}}
+/* Ilkal saree border */
+.ilkal{height:10px;background:repeating-linear-gradient(90deg,var(--kum) 0 14px,var(--gold) 14px 18px,var(--maroon) 18px 32px,var(--gold) 32px 36px)}
+.site-header{position:sticky;top:0;z-index:10;border-width:0 0 1px;border-radius:0;background:rgba(255,248,232,.66)}
+.nav{display:flex;align-items:center;gap:1rem;min-height:64px}
+.brand{display:flex;align-items:center;gap:.55rem;font:800 1.3rem Outfit,sans-serif;text-decoration:none;margin-right:auto;color:var(--stone)}
+.sun{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFD95A,var(--gold) 55%,var(--kum) 100%);box-shadow:0 0 0 3px rgba(245,179,1,.35)}
+.nav-links{display:flex;gap:.25rem;align-items:center;list-style:none;margin:0;padding:0}
+.nav-links a{display:block;text-decoration:none;padding:.45rem .85rem;border-radius:99px;font-size:.95rem;font-weight:500;color:var(--ink)}
+.nav-links a:hover,.nav-links a[aria-current=page]{background:rgba(255,255,255,.7)}
+.nav-links a.cta{background:linear-gradient(135deg,var(--kum),var(--kum2));color:#fff;font-weight:600;box-shadow:0 4px 14px rgba(179,38,30,.35)}
+.nav-toggle{display:none;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:99px;padding:.4rem .9rem;font:inherit;cursor:pointer;color:var(--ink)}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:2.5rem 2rem 9.5rem;margin-bottom:2.5rem}
+.hero>*{position:relative;z-index:1}
+.hero:after{content:"";position:absolute;inset:auto 0 0 0;height:190px;background:url(../assets/images/skyline.svg) center bottom/cover no-repeat;z-index:0;pointer-events:none}
+.slogan{display:inline-block;font:700 clamp(1.3rem,3.2vw,1.9rem) "Noto Sans Kannada",Outfit,sans-serif;color:var(--kum2);margin-bottom:1.25rem;padding-bottom:.25rem;border-bottom:4px solid var(--gold)}
+.hero .filters{background:rgba(255,255,255,.72)}
+.site-footer{background:linear-gradient(180deg,#3A0D14,var(--stone));color:#FFF4DC;font-size:.92rem}.site-footer .container{padding-top:1.6rem;padding-bottom:1.6rem}.site-footer a{color:#FFD95A}.site-footer p{color:#E9D5C0}.site-footer b{color:#fff}

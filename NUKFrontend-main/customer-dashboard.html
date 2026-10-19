@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer dashboard | NUK RentServe</title><meta name="description" content="Find local service providers and rental properties in North Karnataka.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Noto+Sans+Kannada:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/forms.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="container nav"><a class="brand" href="index.html"><span class="sun" aria-hidden="true"></span>NUK RentServe</a>
+<button class="nav-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
+<ul class="nav-links" id="menu"><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="rentals.html">Rentals</a></li><li><a class="cta" href="provider-register.html">Become a Service Provider</a></li><li><a id="auth-link" href="login.html">Log in</a></li></ul></div></header>
+<main id="main"><div class="container">
+<h1>Welcome, <span id="who"></span></h1><div class="dash"><div class="card panel wide"><h2>My enquiries</h2><div id="enq-list"></div></div><div class="card panel wide"><h2>Keep browsing</h2><div class="row"><a class="btn" href="services.html">Find services</a><a class="btn btn-outline" href="rentals.html">Find rentals</a><a class="btn btn-outline" href="owner-dashboard.html">List your house / room / PG</a></div></div><div class="card panel wide"><h2>My rental booking requests</h2><div id="booking-list"></div></div></div>
+</div></main>
+<footer class="site-footer"><div class="ilkal"></div><div class="container"><p><b style="color:#fff">NUK RentServe</b> · ನಿಮ್ಮ ಊರು, ನಿಮ್ಮ ಸೇವೆ!</p><p>Serving Bagalkot, Belagavi, Hubballi, Dharwad, Vijayapura, Gadag and Koppal.</p><p><a href="services.html">Services</a> · <a href="rentals.html">Rentals</a> · <a href="provider-register.html">Become a Service Provider</a></p></div></footer>
+<script src="js/config.js"></script>
+<script src="data/demo-data.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/common.js"></script>
+<script src="js/customer-dashboard.js"></script>
+</body></html>

@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Become a Service Provider | NUK RentServe</title>
+    <meta name="description" content="Find local service providers and rental properties in North Karnataka.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Noto+Sans+Kannada:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+        <div class="container nav">
+            <a class="brand" href="index.html">
+                <span class="sun" aria-hidden="true"></span>
+                NUK RentServe
+            </a>
+
+            <button class="nav-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
+
+            <ul class="nav-links" id="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="rentals.html">Rentals</a></li>
+                <li><a class="cta" href="provider-register.html">Become a Service Provider</a></li>
+                <li><a id="auth-link" href="login.html">Log in</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="container">
+            <div class="form-card">
+
+                <h1 style="font-size:2rem">Become a Service Provider</h1>
+
+                <p class="mute">
+                    Get found by customers in your city, who contact you directly.
+                    Providers must be 18 or older. Applications remain pending until
+                    manually reviewed by an administrator.
+                    Already registered?
+                    <a href="login.html">Login as Provider</a>.
+                </p>
+
+                <ol class="steps" id="steps">
+                    <li>Personal</li>
+                    <li>Service</li>
+                    <li>Aadhaar document (optional)</li>
+                    <li>Consent</li>
+                </ol>
+
+                <form id="pf" class="card" novalidate autocomplete="off" enctype="multipart/form-data">
+
+                    <!-- STEP 1: PERSONAL DETAILS -->
+                    <fieldset class="step">
+                        <legend class="sr" hidden>Personal details</legend>
+                        <h2>Personal details</h2>
+
+                        <label>
+                            Full legal name
+                            <input name="fullName" type="text" autocomplete="name">
+                            <span class="err" id="e-fullName"></span>
+                        </label>
+
+                        <label>
+                            Date of birth
+                            <input name="dob" type="date">
+                            <span class="err" id="e-dob"></span>
+                        </label>
+
+                        <div id="agemsg" aria-live="polite"></div>
+
+                        <div class="two">
+                            <label>
+                                Mobile number
+                                <input name="mobile" type="tel" inputmode="numeric" maxlength="10">
+                                <span class="err" id="e-mobile"></span>
+                            </label>
+
+                            <label>
+                                Email address
+                                <input name="email" type="email" autocomplete="email">
+                                <span class="err" id="e-email"></span>
+                            </label>
+                        </div>
+
+                        <div class="card" style="margin:.75rem 0;padding:1rem;background:#fffaf0">
+                            <strong>Email verification</strong>
+                            <p class="mute">Verify your email before submitting your application.</p>
+                            <div class="row" style="gap:.5rem;align-items:end;flex-wrap:wrap">
+                                <button class="btn btn-outline" type="button" id="send-otp">Send email OTP</button>
+                                <label style="flex:1;min-width:160px">Six-digit OTP<input id="email-otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="123456"></label>
+                                <button class="btn btn-outline" type="button" id="verify-otp">Verify OTP</button>
+                            </div>
+                            <p id="otp-status" aria-live="polite" class="mute"></p>
+                        </div>
+
+                        <label>
+                            Create password
+                            <input name="password" type="password" autocomplete="new-password">
+                            <span class="err" id="e-password"></span>
+                        </label>
+
+                        <label>
+                            Address
+                            <textarea name="address"></textarea>
+                            <span class="err" id="e-address"></span>
+                        </label>
+                    </fieldset>
+
+                    <!-- STEP 2: SERVICE DETAILS -->
+                    <fieldset class="step">
+                        <h2>Service details</h2>
+
+                        <div class="two">
+                            <label>
+                                City
+                                <select name="city" data-fill="cities">
+                                    <option value="">Select city</option>
+                                    <option value="Bagalkot">Bagalkot</option>
+                                    <option value="Belagavi">Belagavi</option>
+                                    <option value="Hubballi">Hubballi</option>
+                                    <option value="Dharwad">Dharwad</option>
+                                    <option value="Vijayapura">Vijayapura</option>
+                                    <option value="Gadag">Gadag</option>
+                                    <option value="Koppal">Koppal</option>
+                                </select>
+                                <span class="err" id="e-city"></span>
+                            </label>
+
+                            <label>
+                                Service category
+                                <select name="category" data-fill="categories">
+                                    <option value="">Select category</option>
+                                </select>
+                                <span class="err" id="e-category"></span>
+                            </label>
+                        </div>
+
+                        <label>
+                            Experience
+                            <input name="experience" type="text" placeholder="e.g. 5 years">
+                            <span class="err" id="e-experience"></span>
+                        </label>
+
+                        <label>
+                            Description of services
+                            <textarea name="description"></textarea>
+                            <span class="err" id="e-description"></span>
+                        </label>
+
+                        <label>
+                            Service area
+                            <input name="area" type="text">
+                            <span class="err" id="e-area"></span>
+                        </label>
+
+                        <label>
+                            Price range (optional)
+                            <input name="priceRange" type="text" placeholder="₹500–1500">
+                        </label>
+                    </fieldset>
+
+                    <!-- STEP 3: OPTIONAL AADHAAR IMAGE -->
+                    <fieldset class="step">
+                        <h2>Upload Aadhaar document (optional)</h2>
+
+                        <p class="note">
+                            For testing, you may upload an Aadhaar card image for
+                            administrator review. Uploading is optional. Do not type
+                            your Aadhaar number into this form.
+                        </p>
+
+                        <label>
+                            Aadhaar card image (JPG, PNG or PDF; max 5 MB)
+                            <input
+                                id="aadhaarDocument"
+                                name="aadhaarDocument"
+                                type="file"
+                                accept="image/jpeg,image/png,application/pdf,.jpg,.jpeg,.png,.pdf">
+                            <span class="err" id="e-aadhaarDocument"></span>
+                        </label>
+
+                        <p class="mute">
+                            The image is not automatically verified. Any uploaded
+                            document must be stored privately and accessible only
+                            to authorized administrators.
+                        </p>
+                    </fieldset>
+
+                    <!-- STEP 4: CONSENT -->
+                    <fieldset class="step">
+                        <h2>Consent</h2>
+
+                        <label class="chk">
+                            <input type="checkbox" name="consent">
+                            <span>
+                                If I upload an identity document, I consent to its
+                                private storage and manual review for this application.
+                            </span>
+                        </label>
+                        <span class="err" id="e-consent"></span>
+
+                        <label class="chk">
+                            <input type="checkbox" name="terms">
+                            <span>I accept the privacy policy and terms of service.</span>
+                        </label>
+                        <span class="err" id="e-terms"></span>
+
+                        <span class="err" id="form-err" role="alert"></span>
+                    </fieldset>
+
+                    <div class="row" style="justify-content:space-between;margin-top:1rem">
+                        <button class="btn btn-outline" type="button" id="back" hidden>
+                            Back
+                        </button>
+
+                        <button class="btn" type="button" id="next">
+                            Continue
+                        </button>
+                    </div>
+                </form>
+
+                <!-- APPLICATION RESULT -->
+                <div class="card" id="done" hidden>
+                    <h1 style="font-size:1.8rem">Application received</h1>
+
+                    <p><span class="badge">Pending Approval</span></p>
+
+                    <p>
+                        Your provider application has been submitted. An administrator
+                        must review and approve it before provider features requiring
+                        approval become available.
+                    </p>
+
+                    <p class="mute" id="done-demo" hidden>
+                        Demo mode: nothing was sent to any server.
+                    </p>
+
+                    <a class="btn" href="provider-dashboard.html">
+                        Open Provider Dashboard
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="ilkal"></div>
+
+        <div class="container">
+            <p><b style="color:#fff">NUK RentServe</b> · ನಿಮ್ಮ ಊರು, ನಿಮ್ಮ ಸೇವೆ!</p>
+
+            <p>
+                Serving Bagalkot, Belagavi, Hubballi, Dharwad,
+                Vijayapura, Gadag and Koppal.
+            </p>
+
+            <p>
+                <a href="services.html">Services</a> ·
+                <a href="rentals.html">Rentals</a> ·
+                <a href="provider-register.html">Become a Service Provider</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="data/demo-data.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/provider-register.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Log in | NUK RentServe</title>
+  <meta name="description" content="Find local service providers and rental properties in North Karnataka.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Noto+Sans+Kannada:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    .forgot-password {
+      text-align: right;
+      margin-top: -8px;
+      margin-bottom: 16px;
+    }
+
+    .forgot-password a {
+      color: #b91c1c;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <span class="sun" aria-hidden="true"></span>
+        NUK RentServe
+      </a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="menu">
+        Menu
+      </button>
+
+      <ul class="nav-links" id="menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="rentals.html">Rentals</a></li>
+        <li><a class="cta" href="provider-register.html">Become a Service Provider</a></li>
+        <li><a id="auth-link" href="login.html">Log in</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container">
+      <div class="form-card card">
+        <h1 style="font-size:1.8rem">Log in</h1>
+
+        <form id="login-form" novalidate>
+          <label>
+            Email or mobile number
+            <input
+              name="identifier"
+              type="text"
+              required
+              autocomplete="username"
+            >
+          </label>
+
+          <label>
+            Password
+            <input
+              name="password"
+              type="password"
+              required
+              autocomplete="current-password"
+            >
+          </label>
+
+          <div class="forgot-password">
+            <a href="forgot-password.html">Forgot Password?</a>
+          </div>
+
+          <span class="err" id="login-err" role="alert"></span>
+
+          <button class="btn btn-block" type="submit">Log in</button>
+        </form>
+
+        <p class="mute" style="margin-top:1rem">
+          New customer?
+          <a href="register.html">Create an account</a>.
+          Providers:
+          <a href="provider-register.html">register here</a>.
+        </p>
+
+        <div id="demo-login" hidden>
+          <h2 style="margin-top:1.2rem">Demo mode</h2>
+          <p class="mute">Preview a dashboard with sample data.</p>
+
+          <div class="row">
+            <button class="btn btn-sm btn-outline" data-role="customer">Customer</button>
+            <button class="btn btn-sm btn-outline" data-role="provider">Provider</button>
+            <button class="btn btn-sm btn-outline" data-role="owner">Owner</button>
+            <button class="btn btn-sm btn-outline" data-role="admin">Admin</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="ilkal"></div>
+    <div class="container">
+      <p><b style="color:#fff">NUK RentServe</b> · ನಿಮ್ಮ ಊರು, ನಿಮ್ಮ ಸೇವೆ!</p>
+      <p>Serving Bagalkot, Belagavi, Hubballi, Dharwad, Vijayapura, Gadag and Koppal.</p>
+      <p>
+        <a href="services.html">Services</a> ·
+        <a href="rentals.html">Rentals</a> ·
+        <a href="provider-register.html">Become a Service Provider</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="data/demo-data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+.dash{display:grid;gap:1.25rem;grid-template-columns:1fr 1fr}.dash .wide{grid-column:1/-1}
+.stat{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.panel h2{margin-bottom:.8rem}.panel .grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.enq{border-top:1px solid var(--line);padding:.7rem 0}.enq:first-child{border-top:0}
+.admin-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem}
