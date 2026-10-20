@@ -1,6 +1,6 @@
 
 const CONFIG = {
-  API_BASE: "http://localhost:5000/api/v1",
+  API_BASE: "https://nukrentserve2026.onrender.com/api/v1",
   DEMO_MODE: false,
   MIN_AGE: 18,
   MAX_UPLOAD_MB: 5,
