@@ -1,4 +1,4 @@
-
+```javascript
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -12,6 +12,10 @@ app.use(helmet());
 
 // CORS configuration
 const allowedOrigins = [
+  // Deployed NUK RentServe frontend
+  "https://nukrentserve2026.vercel.app",
+
+  // Local development origins
   "http://127.0.0.1:5500",
   "http://localhost:5500",
   "http://127.0.0.1:5501",
@@ -24,6 +28,8 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:5173",
   "http://localhost:5173",
+
+  // Additional origins configured in Render
   ...(process.env.CLIENT_ORIGIN || "")
     .split(",")
     .map((origin) => origin.trim().replace(/\/+$/, ""))
@@ -33,8 +39,14 @@ const allowedOrigins = [
 app.use(
   cors({
     origin(origin, callback) {
-      // Requests without an Origin header are allowed.
-      if (!origin || allowedOrigins.includes(origin.replace(/\/+$/, ""))) {
+      // Allow requests without an Origin header
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      const normalizedOrigin = origin.replace(/\/+$/, "");
+
+      if (allowedOrigins.includes(normalizedOrigin)) {
         return callback(null, true);
       }
 
@@ -47,6 +59,7 @@ app.use(
   })
 );
 
+// Request body parsing
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 
@@ -62,17 +75,26 @@ app.use(
 );
 
 // Health checks
-app.get("/health", (req, res) =>
-  res.json({ success: true, message: "NUK RentServe API is running." })
-);
+app.get("/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "NUK RentServe API is running.",
+  });
+});
 
-app.get("/api/health", (req, res) =>
-  res.json({ success: true, message: "NUK RentServe API is running." })
-);
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "NUK RentServe API is running.",
+  });
+});
 
-app.get("/api/v1/health", (req, res) =>
-  res.json({ success: true, message: "NUK RentServe API is running." })
-);
+app.get("/api/v1/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "NUK RentServe API is running.",
+  });
+});
 
 // Authentication
 app.use("/api/auth", require("./routes/authRoutes"));
@@ -124,8 +146,9 @@ app.use("/api/v1/admin", require("./routes/adminRoutes"));
 app.use("/api/bookings", require("./routes/bookingRoutes"));
 app.use("/api/v1/bookings", require("./routes/bookingRoutes"));
 
-// Error handling
+// Error handling (keep last)
 app.use(notFound);
 app.use(errorHandler);
 
 module.exports = app;
+```
