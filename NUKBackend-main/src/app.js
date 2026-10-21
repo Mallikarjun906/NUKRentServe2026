@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -7,10 +6,15 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 const app = express();
 
+// Render proxy configuration.
+// Verify that one trusted proxy hop matches your deployment topology.
+app.set("trust proxy", 1);
 app.disable("x-powered-by");
+
 app.use(helmet());
 
-// CORS configuration
+const normalizeOrigin = (origin) => origin.trim().replace(/\/+$/, "");
+
 const allowedOrigins = [
   "https://nukrentserve2026.vercel.app",
   "http://127.0.0.1:5500",
@@ -27,14 +31,14 @@ const allowedOrigins = [
   "http://localhost:5173",
   ...(process.env.CLIENT_ORIGIN || "")
     .split(",")
-    .map((origin) => origin.trim().replace(/\/+$/, ""))
+    .map(normalizeOrigin)
     .filter(Boolean),
-];
+].map(normalizeOrigin);
 
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.includes(origin.replace(/\/+$/, ""))) {
+      if (!origin || allowedOrigins.includes(normalizeOrigin(origin))) {
         return callback(null, true);
       }
 
