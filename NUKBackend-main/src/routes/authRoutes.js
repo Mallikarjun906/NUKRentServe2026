@@ -46,6 +46,7 @@ router.post(
 router.post("/login", controller.login);
 router.post("/refresh", controller.refresh);
 router.post("/logout", authenticate, controller.logout);
+router.post("/google", otpLimiter, controller.googleLogin);
 
 // Password recovery
 router.post(
