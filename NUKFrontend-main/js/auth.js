@@ -145,3 +145,110 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+
+/* NUK RentServe — Google Sign-In */
+
+function initializeGoogleSignIn() {
+  const buttonContainer = document.getElementById("google-signin-button");
+
+  if (!buttonContainer) return;
+
+  if (!window.google || !google.accounts || !google.accounts.id) {
+    buttonContainer.textContent =
+      "Google Sign-In could not load. Please refresh the page.";
+    return;
+  }
+
+  google.accounts.id.initialize({
+    client_id: "YOUR_GOOGLE_CLIENT_ID",
+    callback: handleGoogleSignIn,
+    auto_select: false
+  });
+
+  google.accounts.id.renderButton(buttonContainer, {
+    theme: "outline",
+    size: "large",
+    text: "continue_with",
+    shape: "rectangular",
+    width: 300
+  });
+}
+
+async function handleGoogleSignIn(response) {
+  const errorElement = document.getElementById("google-login-error");
+  const buttonContainer = document.getElementById("google-signin-button");
+
+  if (errorElement) errorElement.textContent = "";
+
+  try {
+    if (!response || !response.credential) {
+      throw new Error("Google did not return a valid credential.");
+    }
+
+    if (buttonContainer) {
+      buttonContainer.style.pointerEvents = "none";
+    }
+
+    const result = await API.req("auth/google", {
+      method: "POST",
+      body: {
+        credential: response.credential
+      }
+    });
+
+    const user = Auth.acceptSession(result);
+
+    const params = new URLSearchParams(window.location.search);
+    const next = Auth.safeNext(params.get("next"));
+
+    window.location.href =
+      next || Auth.HOME[user.role] || "index.html";
+  } catch (error) {
+    if (errorElement) {
+      errorElement.textContent =
+        error.message || "Google Sign-In failed. Please try again.";
+    } else {
+      alert(error.message || "Google Sign-In failed. Please try again.");
+    }
+
+    if (buttonContainer) {
+      buttonContainer.style.pointerEvents = "";
+    }
+  }
+}
+
+function waitForGoogleSignIn() {
+  if (window.google?.accounts?.id) {
+    initializeGoogleSignIn();
+    return;
+  }
+
+  let attempts = 0;
+
+  const timer = setInterval(() => {
+    attempts++;
+
+    if (window.google?.accounts?.id) {
+      clearInterval(timer);
+      initializeGoogleSignIn();
+    } else if (attempts >= 30) {
+      clearInterval(timer);
+
+      const container = document.getElementById("google-signin-button");
+      if (container) {
+        container.textContent =
+          "Google Sign-In unavailable. Refresh and try again.";
+      }
+    }
+  }, 200);
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    waitForGoogleSignIn
+  );
+} else {
+  waitForGoogleSignIn();
+}

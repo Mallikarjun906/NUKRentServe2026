@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/responsive.css">
 
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
     .forgot-password {
       text-align: right;
@@ -33,6 +35,44 @@
 
     .forgot-password a:hover {
       text-decoration: underline;
+    }
+
+    .google-login-section {
+      margin-top: 1.5rem;
+    }
+
+    .google-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 1.25rem 0;
+      color: #777;
+      font-size: 0.85rem;
+    }
+
+    .google-divider::before,
+    .google-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #ddd;
+    }
+
+    .google-login-heading {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    #google-signin-button {
+      display: flex;
+      justify-content: center;
+      min-height: 40px;
+    }
+
+    #google-login-error {
+      margin-top: 0.75rem;
+      text-align: center;
     }
   </style>
 </head>
@@ -96,6 +136,24 @@
           <button class="btn btn-block" type="submit">Log in</button>
         </form>
 
+        <div class="google-login-section">
+          <div class="google-divider"><span>OR</span></div>
+
+          <p class="google-login-heading">Continue with Google</p>
+
+          <div
+            id="google-signin-button"
+            aria-label="Sign in with Google"
+          ></div>
+
+          <p
+            class="err"
+            id="google-login-error"
+            role="alert"
+            aria-live="polite"
+          ></p>
+        </div>
+
         <p class="mute" style="margin-top:1rem">
           New customer?
           <a href="register.html">Create an account</a>.
@@ -130,7 +188,7 @@
       </p>
     </div>
   </footer>
-
+<script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="js/config.js"></script>
   <script src="data/demo-data.js"></script>
   <script src="js/api.js"></script>
