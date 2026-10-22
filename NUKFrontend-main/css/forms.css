@@ -1,9 +1,234 @@
-label{display:block;font-weight:600;font-size:.92rem;margin-bottom:.9rem;color:var(--stone)}
-input,select,textarea{width:100%;margin-top:.3rem;padding:.64rem .8rem;border:1px solid rgba(122,16,32,.22);border-radius:12px;background:rgba(255,255,255,.75);color:var(--ink);font:inherit;font-weight:400}
-input:focus,select:focus,textarea:focus{border-color:var(--kum);background:#fff}textarea{min-height:90px;resize:vertical}
-.err{display:block;color:var(--kum2);font-weight:600;font-size:.84rem;margin-top:.2rem}.err:not(:empty):before{content:"! "}.okmsg{font-size:.85rem;font-weight:600;color:var(--green)}
-.chk{display:flex;gap:.6rem;align-items:flex-start;font-weight:400}.chk input{width:auto;margin-top:.35rem;accent-color:var(--kum)}
-.form-card{max-width:620px;margin:0 auto}.two{display:grid;gap:0 1rem;grid-template-columns:1fr 1fr}
-.steps{display:flex;gap:.4rem;margin:1rem 0 1.4rem;padding:0;list-style:none}.steps li{flex:1;text-align:center;font-size:.82rem;color:var(--mute);border-bottom:4px solid rgba(122,16,32,.15);padding-bottom:.4rem;font-weight:600;border-radius:2px}.steps li.on{color:var(--kum2);border-color:var(--kum)}.steps li.dn{border-color:var(--gold)}
-fieldset.step{display:none;border:0;padding:0;margin:0}fieldset.step.on{display:block}
-.note{border-left:5px solid var(--gold);border-radius:12px;padding:.8rem 1rem;margin-bottom:1rem;font-size:.9rem}
+
+/* =========================================
+   NUK RentServe — Red Glassmorphism Forms
+   ========================================= */
+
+:root {
+  --form-red: #e51f3d;
+  --form-red-dark: #b91230;
+  --form-red-soft: #fff0f2;
+  --form-ink: #17171d;
+  --form-muted: #686875;
+  --form-line: #eee1e5;
+  --form-green: #16834a;
+  --form-glass: rgba(255, 255, 255, 0.78);
+  --form-shadow: 0 12px 34px rgba(72, 20, 35, 0.09);
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 0.9rem;
+  color: var(--form-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+/* Input fields */
+input,
+select,
+textarea {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--form-line);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--form-ink);
+  font: inherit;
+  font-weight: 400;
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease,
+              background 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #98919a;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #efb9c3;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--form-red);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(229, 31, 61, 0.10);
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin-top: 0.25rem;
+  accent-color: var(--form-red);
+}
+
+/* Error and success messages */
+.err {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--form-red-dark);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.err:not(:empty)::before {
+  content: "! ";
+}
+
+.okmsg {
+  color: var(--form-green);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* Checkbox rows */
+.chk {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: var(--form-muted);
+  font-weight: 400;
+}
+
+.chk input {
+  flex: 0 0 auto;
+  margin-top: 0.35rem;
+}
+
+/* Main form card — glassmorphism */
+.form-card {
+  width: 100%;
+  max-width: 620px;
+  margin: 1.5rem auto;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+  background: var(--form-glass);
+  box-shadow: var(--form-shadow);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* Two-column forms */
+.two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 1rem;
+}
+
+/* Registration steps */
+.steps {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  flex: 1;
+  padding: 0.55rem 0.25rem;
+  border-bottom: 4px solid #eee5e8;
+  border-radius: 3px;
+  color: var(--form-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.steps li.on {
+  border-color: var(--form-red);
+  color: var(--form-red-dark);
+}
+
+.steps li.dn {
+  border-color: #f4a0ae;
+  color: var(--form-red-dark);
+}
+
+/* Multi-step fieldsets */
+fieldset.step {
+  display: none;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+fieldset.step.on {
+  display: block;
+}
+
+/* Informational notes */
+.note {
+  margin-bottom: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid #ffe0a6;
+  border-left: 4px solid #f5a623;
+  border-radius: 13px;
+  background: rgba(255, 248, 231, 0.9);
+  color: #684c22;
+  font-size: 0.9rem;
+}
+
+/* Form buttons */
+.form-card button,
+.form-card .btn {
+  border-radius: 13px;
+}
+
+.form-card button[type="submit"],
+.form-card .btn {
+  min-height: 44px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .form-card {
+    margin: 1rem auto;
+    padding: 1.1rem;
+    border-radius: 19px;
+  }
+
+  .two {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .steps {
+    gap: 0.3rem;
+  }
+
+  .steps li {
+    font-size: 0.73rem;
+    padding: 0.5rem 0.15rem;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 0.75rem 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  input,
+  select,
+  textarea,
+  .steps li {
+    transition: none;
+  }
+}

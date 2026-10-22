@@ -1,32 +1,275 @@
+
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home | NUK RentServe</title><meta name="description" content="Find local service providers and rental properties in North Karnataka.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Noto+Sans+Kannada:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/forms.css">
-<link rel="stylesheet" href="css/dashboard.css">
-<link rel="stylesheet" href="css/responsive.css">
-</head><body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>NUK RentServe | Local Services & Rentals</title>
+  <meta name="description" content="Find trusted local service providers and rental properties across North Karnataka.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=Noto+Sans+Kannada:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Keep your existing CSS files -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- New design: load last -->
+  <link rel="stylesheet" href="css/marketplace-theme.css">
+</head>
+
+<body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-header"><div class="container nav"><a class="brand" href="index.html"><span class="sun" aria-hidden="true"></span>NUK RentServe</a>
-<button class="nav-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
-<ul class="nav-links" id="menu"><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="rentals.html">Rentals</a></li><li><a class="cta" href="provider-register.html">Become a Service Provider</a></li><li><a id="auth-link" href="login.html">Log in</a></li></ul></div></header>
-<main id="main"><div class="container">
-<section class="hero"><h1>Find trusted local services and rentals.</h1><p class="slogan">ನಿಮ್ಮ ಊರು, ನಿಮ್ಮ ಸೇವೆ!</p>
-<form id="home-search" class="filters" role="search"><label>What do you need?<input name="q" type="search" placeholder="Plumber, electrician, cleaner…"></label><label>City<select name="city"  data-fill="cities" ><option value="">All cities</option></select></label><label>Category<select name="category"  data-fill="categories" ><option value="">All categories</option></select></label><button class="btn" type="submit">Search</button></form><p class="mute">No account needed to browse.</p></section>
-<section><h2>Explore North Karnataka</h2><p class="mute">Choose your city to see local providers. ನಿಮ್ಮ ಊರು ಆಯ್ಕೆಮಾಡಿ.</p><div class="grid" id="city-grid"></div></section>
-<section><h2>Service categories</h2><div class="grid" id="cat-grid"></div></section>
-<section><h2>Rentals</h2><div class="grid" id="rent-grid"></div></section>
-<section><div class="row" style="justify-content:space-between"><h2>Local providers</h2><a href="services.html">View all</a></div><div class="grid" id="feat-s"></div></section>
-<section><div class="row" style="justify-content:space-between"><h2>Properties for rent</h2><a href="rentals.html">View all</a></div><div class="grid" id="feat-p"></div></section>
-<section class="card"><h2>Offer your skills on NUK RentServe</h2><p class="mute">List your services for free. Providers are verified before listings go public.</p><a class="btn" href="provider-register.html">Become a Service Provider</a></section>
-</div></main>
-<footer class="site-footer"><div class="ilkal"></div><div class="container"><p><b style="color:#fff">NUK RentServe</b> · ನಿಮ್ಮ ಊರು, ನಿಮ್ಮ ಸೇವೆ!</p><p>Serving Bagalkot, Belagavi, Hubballi, Dharwad, Vijayapura, Gadag and Koppal.</p><p><a href="services.html">Services</a> · <a href="rentals.html">Rentals</a> · <a href="provider-register.html">Become a Service Provider</a></p></div></footer>
+
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="27" height="27" fill="none"
+          stroke="currentColor" stroke-width="2.3"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 10.5 12 3l9 7.5"/>
+          <path d="M5.5 9.5V21h13V9.5"/>
+          <path d="M9.5 21v-7h5v7"/>
+        </svg>
+      </span>
+      <span class="brand-name">NUK <b>RentServe</b>
+        <small>ನಿಮ್ಮ ಊರು, ನಿಮ್ಮ ಸೇವೆ!</small>
+      </span>
+    </a>
+
+    <button class="nav-toggle" type="button"
+      aria-expanded="false" aria-controls="menu">☰</button>
+
+    <ul class="nav-links" id="menu">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="rentals.html">Rentals</a></li>
+      <li><a href="services.html">Providers</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a class="cta" href="provider-register.html">Become a Provider</a></li>
+      <li><a id="auth-link" href="login.html">Log in</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container marketplace">
+
+    <!-- Hero banner and search -->
+    <section class="market-hero">
+      <div class="hero-photo" aria-hidden="true"></div>
+      <div class="hero-shade" aria-hidden="true"></div>
+
+      <div class="hero-copy">
+        <span class="hero-kicker">YOUR LOCAL MARKETPLACE</span>
+        <h1>Find the <em>Perfect</em><br>Service Expert</h1>
+        <p class="hero-kannada">ನಿಮ್ಮ ಊರು, ನಿಮ್ಮ ಸೇವೆ!</p>
+        <p class="hero-subtitle">Trusted local services and rentals, all in one place.</p>
+
+        <div class="trust-pills">
+          <span>✓ Verified professionals</span>
+          <span>✓ Trusted by locals</span>
+          <span>✓ Easy to explore</span>
+        </div>
+      </div>
+
+      <div class="trust-card">
+        <span class="trust-avatar">✓</span>
+        <span>
+          <b>Local professionals</b>
+          <small>Discover services near you</small>
+        </span>
+      </div>
+
+      <form id="home-search" class="hero-search" role="search">
+        <label class="search-field">
+          <span class="field-icon" aria-hidden="true">⌕</span>
+          <span class="field-copy">
+            <b>What do you need?</b>
+            <input name="q" type="search"
+              placeholder="Plumber, electrician, cleaner..."
+              aria-label="Search services">
+          </span>
+        </label>
+
+        <label class="select-field">
+          <span class="field-icon" aria-hidden="true">●</span>
+          <span class="field-copy">
+            <b>City</b>
+            <select name="city" data-fill="cities">
+              <option value="">All cities</option>
+            </select>
+          </span>
+        </label>
+
+        <label class="select-field">
+          <span class="field-icon" aria-hidden="true">▦</span>
+          <span class="field-copy">
+            <b>Category</b>
+            <select name="category" data-fill="categories">
+              <option value="">All categories</option>
+            </select>
+          </span>
+        </label>
+
+        <button class="hero-search-button" type="submit">
+          <span aria-hidden="true">⌕</span> Search
+        </button>
+      </form>
+    </section>
+
+    <!-- Quick service categories -->
+    <section class="category-strip-section">
+      <div class="category-strip">
+        <a href="services.html" class="category-shortcut"><span class="category-icon red">🔧</span><b>Plumbing</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon amber">ϟ</span><b>Electrician</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon pink">▰</span><b>Painting</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon red">✦</span><b>Cleaning</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon pink">✂</span><b>Salon & Spa</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon red">⚙</span><b>Appliance Repair</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon pink">▰</span><b>Moving</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon red">⌂</span><b>Carpentry</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon green">❧</span><b>Gardening</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon pink">▣</span><b>Car Services</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon purple">▥</span><b>Pest Control</b></a>
+        <a href="services.html" class="category-shortcut"><span class="category-icon red">•••</span><b>More</b></a>
+      </div>
+    </section>
+
+    <!-- Promotional banners -->
+    <section class="promo-grid">
+      <article class="promo-card service-promo">
+        <div class="promo-text">
+          <span class="promo-label">DISCOVER LOCAL</span>
+          <h2>Trusted <strong>Services</strong></h2>
+          <p>Find the right professional for your next task.</p>
+          <a href="services.html" class="promo-button">Explore services →</a>
+        </div>
+        <div class="worker-art" aria-hidden="true">
+          <div class="worker-halo"></div>
+          <div class="worker-head"></div>
+          <div class="worker-body"></div>
+          <span class="worker-badge">★</span>
+        </div>
+      </article>
+
+      <article class="promo-card rental-promo">
+        <div class="promo-text">
+          <span class="promo-label">FIND YOUR HOME</span>
+          <h2>Safe Homes<br><strong>Better Living</strong></h2>
+          <p>Explore local rental listings.</p>
+          <a href="rentals.html" class="promo-button">Explore rentals →</a>
+        </div>
+        <div class="house-art" aria-hidden="true">
+          <div class="house-roof"></div>
+          <div class="house-body"><span></span><span></span><i></i></div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Cities, providers and properties -->
+    <section class="content-columns">
+      <section class="content-section">
+        <div class="section-head">
+          <div>
+            <h2>Explore North Karnataka</h2>
+            <p>Choose your city to see local providers.</p>
+          </div>
+          <a href="services.html" class="see-all">See all →</a>
+        </div>
+        <div class="grid city-grid" id="city-grid"></div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-head">
+          <div>
+            <h2>Popular Services</h2>
+            <p>Find trusted local professionals.</p>
+          </div>
+          <a href="services.html" class="see-all">See all →</a>
+        </div>
+        <div class="grid provider-grid" id="feat-s"></div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-head">
+          <div>
+            <h2>Properties for Rent</h2>
+            <p>Find a space that suits your needs.</p>
+          </div>
+          <a href="rentals.html" class="see-all">See all →</a>
+        </div>
+        <div class="grid property-grid" id="feat-p"></div>
+      </section>
+    </section>
+
+    <section class="dynamic-sections">
+      <div class="section-head">
+        <div><h2>Explore Service Categories</h2><p>Professionals for everyday needs.</p></div>
+        <a href="services.html" class="see-all">See all →</a>
+      </div>
+      <div class="grid category-grid" id="cat-grid"></div>
+    </section>
+
+    <section class="dynamic-sections">
+      <div class="section-head">
+        <div><h2>Browse Rental Types</h2><p>Find rooms, homes and local spaces.</p></div>
+        <a href="rentals.html" class="see-all">See all →</a>
+      </div>
+      <div class="grid rental-grid" id="rent-grid"></div>
+    </section>
+
+    <section class="provider-cta" id="about">
+      <div class="cta-mark">✦</div>
+      <div class="cta-copy">
+        <span class="eyebrow">GROW WITH YOUR COMMUNITY</span>
+        <h2>Your skills deserve to be discovered.</h2>
+        <p>Join NUK RentServe and connect with people in North Karnataka.</p>
+      </div>
+      <a href="provider-register.html" class="cta-button">Become a Provider →</a>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-ribbon"></div>
+  <div class="container footer-inner">
+    <a class="brand footer-brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">⌂</span>
+      <span class="brand-name">NUK <b>RentServe</b><small>ನಿಮ್ಮ ಊರು, ನಿಮ್ಮ ಸೇವೆ!</small></span>
+    </a>
+    <p>Connecting North Karnataka with trusted local services and rentals.</p>
+    <p>Bagalkot · Belagavi · Hubballi · Dharwad · Vijayapura · Gadag · Koppal</p>
+    <div class="footer-links">
+      <a href="services.html">Services</a>
+      <a href="rentals.html">Rentals</a>
+      <a href="provider-register.html">Become a Provider</a>
+      <a href="login.html">Log in</a>
+    </div>
+    <small>© NUK RentServe. All rights reserved.</small>
+  </div>
+</footer>
+
+<nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+  <a href="index.html" class="bottom-link active"><span>⌂</span><small>Home</small></a>
+  <a href="services.html" class="bottom-link"><span>▦</span><small>Services</small></a>
+  <a href="rentals.html" class="bottom-link"><span>⌂</span><small>Rentals</small></a>
+  <a href="login.html" class="bottom-link"><span>♙</span><small>Profile</small></a>
+</nav>
+
+<!-- Do not remove or reorder your existing application scripts -->
 <script src="js/config.js"></script>
 <script src="data/demo-data.js"></script>
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/common.js"></script>
 <script src="js/home.js"></script>
-</body></html>
+</body>
+</html>
