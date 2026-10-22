@@ -1,1 +1,68 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Login | NUK RentServe</title><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/components.css"><link rel="stylesheet" href="css/forms.css"><link rel="stylesheet" href="css/responsive.css"><style>.admin-shell{max-width:480px;margin:5rem auto}.admin-mark{width:52px;height:52px;border-radius:16px;background:#a62b22;color:#fff;display:grid;place-items:center;font-size:1.4rem;font-weight:800}.admin-card{padding:2rem;border:1px solid #eadfce;border-radius:24px;box-shadow:0 24px 70px #49210d14;background:#fff}.admin-card input{width:100%}</style></head><body><main class="container admin-shell"><section class="admin-card"><div class="admin-mark">N</div><p class="mute">NUK RentServe · Secure access</p><h1>Administrator login</h1><p class="mute">Only authorized admin accounts can review provider applications and identity documents.</p><form id="admin-login-form"><label>Email address<input name="email" type="email" required autocomplete="username"></label><label>Password<input name="password" type="password" required autocomplete="current-password"></label><p id="admin-login-error" class="err" role="alert"></p><button class="btn" type="submit">Sign in securely</button></form><p><a href="index.html">← Back to home</a></p></section></main><script src="js/config.js"></script><script src="js/api.js"></script><script src="js/auth.js"></script><script src="js/common.js"></script><script>document.getElementById('admin-login-form').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,err=document.getElementById('admin-login-error'),b=f.querySelector('button');err.textContent='';setBusy(b,true,'Signing in…');try{const u=await Auth.login(f.email.value.trim(),f.password.value);if(u.role!=='admin'){await Auth.logout();throw new Error('This account is not an administrator.')}location.href='admin-dashboard.html'}catch(x){err.textContent=x.message;setBusy(b,false)}});</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Admin Login | NUK RentServe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/marketplace-theme.css">
+    <style>
+        .admin-shell {
+            max-width: 480px;
+            margin: 5rem auto
+        }
+
+        .admin-mark {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: #a62b22;
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 1.4rem;
+            font-weight: 800
+        }
+
+        .admin-card {
+            padding: 2rem;
+            border: 1px solid #eadfce;
+            border-radius: 24px;
+            box-shadow: 0 24px 70px #49210d14;
+            background: #fff
+        }
+
+        .admin-card input {
+            width: 100%
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container admin-shell">
+        <section class="admin-card">
+            <div class="admin-mark">N</div>
+            <p class="mute">NUK RentServe · Secure access</p>
+            <h1>Administrator login</h1>
+            <p class="mute">Only authorized admin accounts can review provider applications and identity documents.</p>
+            <form id="admin-login-form"><label>Email address<input name="email" type="email" required
+                        autocomplete="username"></label><label>Password<input name="password" type="password" required
+                        autocomplete="current-password"></label>
+                <p id="admin-login-error" class="err" role="alert"></p><button class="btn" type="submit">Sign in
+                    securely</button>
+            </form>
+            <p><a href="index.html">← Back to home</a></p>
+        </section>
+    </main>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/common.js"></script>
+    <script>document.getElementById('admin-login-form').addEventListener('submit', async e => { e.preventDefault(); const f = e.currentTarget, err = document.getElementById('admin-login-error'), b = f.querySelector('button'); err.textContent = ''; setBusy(b, true, 'Signing in…'); try { const u = await Auth.login(f.email.value.trim(), f.password.value); if (u.role !== 'admin') { await Auth.logout(); throw new Error('This account is not an administrator.') } location.href = 'admin-dashboard.html' } catch (x) { err.textContent = x.message; setBusy(b, false) } });</script>
+</body>
+
+</html>

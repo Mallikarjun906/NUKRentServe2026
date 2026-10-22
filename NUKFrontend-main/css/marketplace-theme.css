@@ -1,0 +1,252 @@
+
+/* =====================================
+   NUK RentServe — Global CSS Fix
+   ===================================== */
+
+:root {
+  --red: #e51f3d;
+  --red-dark: #b91230;
+  --red-soft: #fff0f2;
+  --ink: #17171d;
+  --muted: #686875;
+  --line: #eee8eb;
+  --shadow: 0 12px 34px rgba(72, 20, 35, .09);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: Inter, "Noto Sans Kannada", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.site-header .nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 72px;
+}
+
+.site-header .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-size: 21px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.site-header .sun {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #ff4058, var(--red-dark));
+}
+
+.nav-links a {
+  text-decoration: none;
+}
+
+main h1 {
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.25;
+}
+
+main h2 {
+  font-size: 23px;
+  line-height: 1.35;
+}
+
+.card,
+.panel,
+.form-card {
+  border: 1px solid rgba(255, 255, 255, .9);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .86);
+  box-shadow: var(--shadow);
+}
+
+.card,
+.panel {
+  padding: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+form input:not([type="checkbox"]):not([type="radio"]),
+form select,
+form textarea {
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+}
+
+form textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+button,
+.btn {
+  cursor: pointer;
+}
+
+.site-footer {
+  margin-top: 28px;
+  padding: 24px 0;
+  background: #211d21;
+  color: #f5edf0;
+}
+
+.site-footer p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.site-footer a {
+  color: #ffd1d7;
+}
+
+@media (max-width: 760px) {
+  .site-header .nav {
+    min-height: 64px;
+    gap: 12px;
+  }
+
+  .site-header .brand {
+    font-size: 18px;
+  }
+
+  main h1 {
+    font-size: 28px;
+  }
+
+  main h2 {
+    font-size: 20px;
+  }
+
+  .card,
+  .panel {
+    padding: 16px;
+  }
+
+  .dash {
+    grid-template-columns: 1fr;
+  }
+
+  .dash .wide {
+    grid-column: auto;
+  }
+}
+
+/* NUK RentServe — Dashboard Button Color Fix */
+
+/* Primary buttons */
+button.btn:not(.btn-outline),
+.btn:not(.btn-outline),
+button[type="submit"] {
+  background: linear-gradient(135deg, #e51f3d, #b91230);
+  color: #ffffff;
+  border: 1px solid #e51f3d;
+  box-shadow: 0 6px 16px rgba(229, 31, 61, 0.18);
+}
+
+/* Hover effect */
+button.btn:not(.btn-outline):hover,
+.btn:not(.btn-outline):hover,
+button[type="submit"]:hover {
+  background: #b91230;
+  color: #ffffff;
+}
+
+/* Secondary buttons: Cancel, Edit, Remove */
+.btn-outline,
+button.btn-outline,
+button[data-cancel] {
+  background: #ffffff;
+  color: #b91230;
+  border: 1px solid #e51f3d;
+  box-shadow: none;
+}
+
+/* Secondary button hover */
+.btn-outline:hover,
+button.btn-outline:hover,
+button[data-cancel]:hover {
+  background: #fff0f2;
+  color: #b91230;
+}
+
+/* Small dashboard action buttons */
+.admin-actions .btn {
+  border-radius: 999px;
+}
+
+
+/* NUK RentServe — Rentals Search Button Fix */
+
+.hero-search button,
+.hero-search .btn,
+button[type="submit"],
+form button[type="submit"],
+.search-form button {
+  background: linear-gradient(135deg, #e51f3d, #b91230) !important;
+  color: #ffffff !important;
+  border: 1px solid #e51f3d !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  box-shadow: 0 6px 16px rgba(229, 31, 61, 0.2);
+  cursor: pointer;
+}
+
+.hero-search button:hover,
+button[type="submit"]:hover,
+form button[type="submit"]:hover,
+.search-form button:hover {
+  background: #b91230 !important;
+  color: #ffffff !important;
+}
