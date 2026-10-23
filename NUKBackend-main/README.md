@@ -69,7 +69,7 @@ Create a property with Postman:
 For service listings, `priceRange` can be a JSON string such as `{"min":100,"max":200}` and `categoryId` must refer to an active category.
 
 ## Production checklist
-Before production, add email verification/OTP, password reset, refresh-token rotation reuse detection, object-level access tests, moderation/report workflows, and monitoring. Review image deletion failure handling and configure a restrictive `CLIENT_ORIGIN`.
+Before production, add refresh-token rotation reuse detection, object-level access tests, moderation/report workflows, and monitoring. Review image deletion failure handling and configure a restrictive `CLIENT_ORIGIN`.
 
 ## Job applications (added)
 - `POST /api/jobs/:id/applications` — customer/student applies to a published, available job. JSON body: `{ "coverMessage": "I am available evenings" }`.
@@ -94,12 +94,12 @@ Use `Authorization: Bearer <accessToken>`, choose **Body → form-data**, and ad
 - Never put MongoDB credentials or JWT secrets in frontend JavaScript.
 
 
-## Email OTP and admin setup
+## Admin setup
 
-1. Copy `.env.example` to `.env` and set MongoDB, strong JWT secrets, SMTP credentials, and Cloudinary credentials for private identity documents. Never commit `.env`.
-2. For Gmail, enable 2-Step Verification and create a Google App Password. Use it as `SMTP_PASS`.
+1. Configure MongoDB, strong JWT secrets, and Cloudinary credentials for private identity documents. Never commit `.env`.
+2. Customer and owner registration use email OTP. Provider registration does not. Password-reset emails require the configured Brevo `BREVO_API_KEY` and `EMAIL_FROM` values.
 3. Run `npm install` and `npm run create-admin` after setting `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PHONE`, and a unique `ADMIN_PASSWORD` (12+ characters) in `.env`.
 4. Start with `npm run dev`. Serve `NUKFrontend-main` with VS Code Live Server.
-5. Open `admin-login.html` to sign in as the seeded administrator. Provider OTP endpoints are `/api/v1/auth/send-otp` and `/api/v1/auth/verify-otp`; provider registration must include the returned `emailVerificationToken`.
+5. Open `admin-login.html` to sign in as the seeded administrator. Provider registration at `/api/v1/providers/register` does not require OTP or email verification.
 
 **Identity document note:** Admin document access is authenticated at the application endpoint. Confirm Cloudinary's authenticated asset and private-download behavior in your own account before production use. OCR is not enabled; name matching is manual by design.

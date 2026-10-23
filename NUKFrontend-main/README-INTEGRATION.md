@@ -6,7 +6,7 @@
 2. From the backend directory run `npm install` and `npm run dev`.
 3. Confirm `http://localhost:5000/api/v1/health` returns a success response.
 4. Open the frontend folder with VS Code Live Server. The default frontend origin is `http://127.0.0.1:5500` or `http://localhost:5500`.
-5. `js/config.js` points to `http://localhost:5000/api/v1`; change `API_BASE` when deploying the backend.
+5. `js/config.js` automatically uses `http://localhost:5000/api/v1` on `localhost`/`127.0.0.1` and the deployed Render API on other hosts. The API endpoint paths remain the same in both environments.
 
 ## Integrated routes
 

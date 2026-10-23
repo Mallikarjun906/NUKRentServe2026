@@ -5,7 +5,6 @@ const crypto = require("crypto");
 const { OAuth2Client } = require("google-auth-library");
 
 const User = require("../models/User");
-const ServiceProvider = require("../models/ServiceProvider");
 const EmailOtp = require("../models/EmailOtp");
 const ApiError = require("../utils/ApiError");
 const ApiResponse = require("../utils/ApiResponse");
@@ -53,7 +52,7 @@ async function createSession(user) {
   return { user: sessionUser(user), accessToken, refreshToken };
 }
 
-/* Traditional registration with email OTP verification */
+/* Traditional registration */
 const register = asyncHandler(async (req, res) => {
   const { name, email, phone, password, role, emailVerificationToken } = req.body;
   const location = req.body.location || req.body.city || "Bagalkot";
@@ -84,7 +83,6 @@ const register = asyncHandler(async (req, res) => {
   }
 
   const otpHash = hashToken(String(emailVerificationToken));
-
   const verifiedOtp = await EmailOtp.findOne({
     email: normalizedEmail,
     purpose: "customer-registration",
@@ -111,13 +109,6 @@ const register = asyncHandler(async (req, res) => {
     role: safeRole,
     location
   });
-
-  if (safeRole === "provider") {
-    await ServiceProvider.create({
-      userId: user._id,
-      displayName: name
-    });
-  }
 
   verifiedOtp.consumedAt = new Date();
   verifiedOtp.verificationTokenHash = "";

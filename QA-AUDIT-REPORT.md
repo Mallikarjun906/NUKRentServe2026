@@ -17,7 +17,7 @@
 ## Checks not completed in this environment
 
 - `npm ci` timed out while attempting dependency installation; therefore Jest tests and full backend startup/integration tests could not run here (`jest` was unavailable).
-- Live MongoDB, Gmail SMTP/Nodemailer delivery, Cloudinary private upload/download, and browser-level end-to-end behavior require your own configured environment and were not represented as verified.
+- Live MongoDB, password-reset email delivery, Cloudinary private upload/download, and browser-level end-to-end behavior require your own configured environment and were not represented as verified.
 
 ## Before production
 

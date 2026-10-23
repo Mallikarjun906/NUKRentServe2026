@@ -6,7 +6,6 @@ const crypto = require("crypto");
 const ProviderApplication = require("../models/ProviderApplication");
 const User = require("../models/User");
 const ServiceProvider = require("../models/ServiceProvider");
-const EmailOtp = require("../models/EmailOtp");
 const ApiError = require("../utils/ApiError");
 const ApiResponse = require("../utils/ApiResponse");
 const asyncHandler = require("../utils/asyncHandler");
@@ -77,15 +76,33 @@ const submit = asyncHandler(async (req, res) => {
     terms,
   } = req.body;
 
+  const normalizedEmail = typeof email === "string" ? email.trim().toLowerCase() : "";
+  const normalizedName = typeof fullName === "string" ? fullName.trim() : "";
+  const normalizedPhone = typeof phone === "string" ? phone.trim() : "";
+  const normalizedAddress = typeof address === "string" ? address.trim() : "";
+  const normalizedCategory = typeof category === "string" ? category.trim() : "";
+  const normalizedExperience = typeof experience === "string" ? experience.trim() : "";
+  const normalizedArea = String(serviceArea || area || "").trim();
+  const normalizedDescription = typeof description === "string" ? description.trim() : "";
+
   if (
-    !fullName ||
+    normalizedName.length < 3 ||
+    normalizedName.length > 100 ||
     !dob ||
-    !phone ||
-    !email ||
+    !/^[6-9]\d{9}$/.test(normalizedPhone) ||
+    !/^\S+@\S+\.\S+$/.test(normalizedEmail) ||
     !password ||
     !city ||
-    !category ||
-    !description
+    !normalizedCategory ||
+    normalizedCategory.length > 80 ||
+    !normalizedExperience ||
+    normalizedExperience.length > 80 ||
+    normalizedAddress.length < 8 ||
+    normalizedAddress.length > 300 ||
+    normalizedArea.length < 2 ||
+    normalizedArea.length > 200 ||
+    normalizedDescription.length < 10 ||
+    normalizedDescription.length > 3000
   ) {
     throw new ApiError(
       400,
@@ -127,14 +144,6 @@ const submit = asyncHandler(async (req, res) => {
   if (!(terms === true || terms === "on" || terms === "true")) {
     throw new ApiError(400, "You must accept the terms of service.");
   }
-
-  const normalizedEmail = String(email).trim().toLowerCase();
-
-  const verificationToken = String(req.body.emailVerificationToken || "");
-  if (!/^[a-f0-9]{64}$/i.test(verificationToken)) throw new ApiError(400, "Verify your email address before submitting your application.");
-  const tokenHash = hashToken(verificationToken);
-  const verifiedOtp = await EmailOtp.findOne({ email: normalizedEmail, purpose: "provider-registration", verificationTokenHash: tokenHash, verifiedAt: { $ne: null }, consumedAt: null, expiresAt: { $gt: new Date() } });
-  if (!verifiedOtp) throw new ApiError(400, "Email verification is missing or expired. Please verify your email again.");
 
   if (await User.exists({ email: normalizedEmail })) {
     throw new ApiError(
@@ -187,9 +196,9 @@ const submit = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
-    name: String(fullName).trim(),
+    name: normalizedName,
     email: normalizedEmail,
-    phone: String(phone).trim(),
+    phone: normalizedPhone,
     password: await bcrypt.hash(password, 12),
     role: "provider",
     location: city,
@@ -207,13 +216,13 @@ const submit = asyncHandler(async (req, res) => {
     fullName: user.name,
     phone: user.phone,
     email: user.email,
-    address: String(address || "").trim(),
-    serviceArea: String(serviceArea || area || "").trim(),
+    address: normalizedAddress,
+    serviceArea: normalizedArea,
     city,
-    category: String(category).trim(),
-    experience: String(experience || "").trim(),
+    category: normalizedCategory,
+    experience: normalizedExperience,
     price: String(price || "").trim(),
-    description: String(description).trim(),
+    description: normalizedDescription,
     consent: Boolean(
       consent === true || consent === "on" || consent === "true"
     ),
@@ -230,9 +239,6 @@ const submit = asyncHandler(async (req, res) => {
   }
 
   const application = await ProviderApplication.create(applicationData);
-  verifiedOtp.consumedAt = new Date();
-  verifiedOtp.verificationTokenHash = "";
-  await verifiedOtp.save();
 
   const newAccessToken = accessToken(user);
   const newRefreshToken = refreshToken(user);

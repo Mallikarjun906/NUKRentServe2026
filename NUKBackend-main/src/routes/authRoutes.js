@@ -10,6 +10,17 @@ const passwordResetController =
 const { authenticate } = require("../middleware/authMiddleware");
 const { validateBody } = require("../middleware/validateMiddleware");
 
+const googleAuthLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 8,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: "Too many Google sign-in attempts. Please try again later."
+  }
+});
+
 const otpLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 8,
@@ -32,7 +43,6 @@ const passwordResetLimiter = rateLimit({
   }
 });
 
-// Email OTP
 router.post("/send-otp", otpLimiter, otpController.send);
 router.post("/verify-otp", otpLimiter, otpController.verify);
 
@@ -46,7 +56,7 @@ router.post(
 router.post("/login", controller.login);
 router.post("/refresh", controller.refresh);
 router.post("/logout", authenticate, controller.logout);
-router.post("/google", otpLimiter, controller.googleLogin);
+router.post("/google", googleAuthLimiter, controller.googleLogin);
 
 // Password recovery
 router.post(

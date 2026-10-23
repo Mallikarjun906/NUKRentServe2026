@@ -101,20 +101,66 @@ document.addEventListener("DOMContentLoaded", () => {
   let registrationVerifiedEmail = "";
   const otpStatus = document.getElementById("register-otp-status");
   if (rf && otpStatus) {
-    rf.email.addEventListener("input", () => { registrationVerificationToken = ""; registrationVerifiedEmail = ""; otpStatus.textContent = "Email changed. Verify this address again."; otpStatus.className = "mute"; });
+    rf.email.addEventListener("input", () => {
+      registrationVerificationToken = "";
+      registrationVerifiedEmail = "";
+      otpStatus.textContent = "Email changed. Verify this address again.";
+      otpStatus.className = "mute";
+    });
+
     document.getElementById("register-send-otp").addEventListener("click", async () => {
       const email = rf.email.value.trim().toLowerCase();
-      if (!/^\S+@\S+\.\S+$/.test(email)) { otpStatus.textContent = "Enter a valid email first."; otpStatus.className = "err"; return; }
-      const button = document.getElementById("register-send-otp"); setBusy(button, true, "Sending…");
-      try { await API.req("auth/send-otp", { method: "POST", body: { email, purpose: "customer-registration" } }); otpStatus.textContent = "OTP sent. Check your inbox and spam folder."; otpStatus.className = "okmsg"; }
-      catch (error) { otpStatus.textContent = error.message; otpStatus.className = "err"; } finally { setBusy(button, false); }
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+        otpStatus.textContent = "Enter a valid email first.";
+        otpStatus.className = "err";
+        return;
+      }
+
+      const button = document.getElementById("register-send-otp");
+      setBusy(button, true, "Sending…");
+      try {
+        await API.req("auth/send-otp", {
+          method: "POST",
+          body: { email, purpose: "customer-registration" }
+        });
+        otpStatus.textContent = "OTP sent. Check your inbox and spam folder.";
+        otpStatus.className = "okmsg";
+      } catch (error) {
+        otpStatus.textContent = error.message;
+        otpStatus.className = "err";
+      } finally {
+        setBusy(button, false);
+      }
     });
+
     document.getElementById("register-verify-otp").addEventListener("click", async () => {
-      const email = rf.email.value.trim().toLowerCase(), otp = document.getElementById("register-otp").value.trim();
-      if (!/^\d{6}$/.test(otp)) { otpStatus.textContent = "Enter the six-digit OTP."; otpStatus.className = "err"; return; }
-      const button = document.getElementById("register-verify-otp"); setBusy(button, true, "Verifying…");
-      try { const result = await API.req("auth/verify-otp", { method: "POST", body: { email, otp, purpose: "customer-registration" } }); registrationVerificationToken = result.verificationToken; registrationVerifiedEmail = email; otpStatus.textContent = "Email verified successfully."; otpStatus.className = "okmsg"; }
-      catch (error) { registrationVerificationToken = ""; registrationVerifiedEmail = ""; otpStatus.textContent = error.message; otpStatus.className = "err"; } finally { setBusy(button, false); }
+      const email = rf.email.value.trim().toLowerCase();
+      const otp = document.getElementById("register-otp").value.trim();
+      if (!/^\d{6}$/.test(otp)) {
+        otpStatus.textContent = "Enter the six-digit OTP.";
+        otpStatus.className = "err";
+        return;
+      }
+
+      const button = document.getElementById("register-verify-otp");
+      setBusy(button, true, "Verifying…");
+      try {
+        const result = await API.req("auth/verify-otp", {
+          method: "POST",
+          body: { email, otp, purpose: "customer-registration" }
+        });
+        registrationVerificationToken = result.verificationToken;
+        registrationVerifiedEmail = email;
+        otpStatus.textContent = "Email verified successfully.";
+        otpStatus.className = "okmsg";
+      } catch (error) {
+        registrationVerificationToken = "";
+        registrationVerifiedEmail = "";
+        otpStatus.textContent = error.message;
+        otpStatus.className = "err";
+      } finally {
+        setBusy(button, false);
+      }
     });
   }
 
@@ -124,7 +170,10 @@ document.addEventListener("DOMContentLoaded", () => {
     err.textContent = "";
     if (!rf.reportValidity()) return;
     if (rf.password.value.length < 8) { err.textContent = "Use at least 8 characters for your password."; return; }
-    if (!registrationVerificationToken || registrationVerifiedEmail !== rf.email.value.trim().toLowerCase()) { err.textContent = "Verify your email address before creating your account."; return; }
+    if (!registrationVerificationToken || registrationVerifiedEmail !== rf.email.value.trim().toLowerCase()) {
+      err.textContent = "Verify your email address before creating your account.";
+      return;
+    }
     const button = rf.querySelector('button[type="submit"]');
     setBusy(button, true, "Creating account…");
     try {

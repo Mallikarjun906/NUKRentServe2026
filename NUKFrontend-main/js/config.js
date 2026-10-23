@@ -1,6 +1,10 @@
 
+const localApi = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
 const CONFIG = {
-  API_BASE: "https://nukrentserve2026.onrender.com/api/v1",
+  API_BASE: localApi
+    ? "http://localhost:5000/api/v1"
+    : "https://nukrentserve2026.onrender.com/api/v1",
   DEMO_MODE: false,
   MIN_AGE: 18,
   MAX_UPLOAD_MB: 5,

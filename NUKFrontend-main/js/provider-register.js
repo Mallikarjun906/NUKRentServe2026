@@ -74,25 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let step = 0;
-  let emailVerificationToken = "";
-  let verifiedEmail = "";
-  const otpStatus = document.getElementById("otp-status");
-  const emailInput = f.elements.email;
-  emailInput.addEventListener("input", () => { emailVerificationToken = ""; verifiedEmail = ""; if (otpStatus) { otpStatus.textContent = "Email changed. Verify this address again."; otpStatus.className = "mute"; } });
-  document.getElementById("send-otp").addEventListener("click", async () => {
-    const email = emailInput.value.trim().toLowerCase();
-    if (!/^\S+@\S+\.\S+$/.test(email)) { otpStatus.textContent = "Enter a valid email address first."; otpStatus.className = "err"; return; }
-    const button = document.getElementById("send-otp"); setBusy(button, true, "Sending…");
-    try { await API.req("auth/send-otp", { method: "POST", body: { email, purpose: "provider-registration" } }); otpStatus.textContent = "OTP sent. Check your inbox and spam folder. It expires in 5 minutes."; otpStatus.className = "okmsg"; }
-    catch (error) { otpStatus.textContent = error.message; otpStatus.className = "err"; } finally { setBusy(button, false); }
-  });
-  document.getElementById("verify-otp").addEventListener("click", async () => {
-    const email = emailInput.value.trim().toLowerCase(); const otp = document.getElementById("email-otp").value.trim();
-    if (!/^\d{6}$/.test(otp)) { otpStatus.textContent = "Enter the six-digit OTP."; otpStatus.className = "err"; return; }
-    const button = document.getElementById("verify-otp"); setBusy(button, true, "Verifying…");
-    try { const result = await API.req("auth/verify-otp", { method: "POST", body: { email, otp, purpose: "provider-registration" } }); emailVerificationToken = result.verificationToken; verifiedEmail = email; otpStatus.textContent = "Email verified successfully."; otpStatus.className = "okmsg"; }
-    catch (error) { emailVerificationToken = ""; verifiedEmail = ""; otpStatus.textContent = error.message; otpStatus.className = "err"; } finally { setBusy(button, false); }
-  });
 
   function show(n) {
     step = n;
@@ -195,8 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
       payload.append("dob", f.elements.dob.value);
       payload.append("phone", f.elements.mobile.value.trim());
       payload.append("email", f.elements.email.value.trim());
-      if (!emailVerificationToken || verifiedEmail !== f.elements.email.value.trim().toLowerCase()) throw new Error("Verify your email address before submitting your application.");
-      payload.append("emailVerificationToken", emailVerificationToken);
       payload.append("password", f.elements.password.value);
       payload.append("address", f.elements.address.value.trim());
       payload.append("city", f.elements.city.value);

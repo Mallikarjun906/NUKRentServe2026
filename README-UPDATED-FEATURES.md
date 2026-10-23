@@ -1,8 +1,7 @@
 # NUK RentServe — updated features and setup
 
 ## Added in this package
-- Nodemailer six-digit email OTP for customer/owner registration and provider registration.
-- OTP hash storage, five-minute expiry, resend cooldown, attempt limits, and a short-lived verification token consumed by the backend registration flow.
+- Customer/owner registration uses email OTP; service provider registration does not require OTP or email verification.
 - Admin seed script and dedicated admin login page.
 - Admin provider review UI with approve, reject, request-more-info, and manual identity-name review actions.
 - Authenticated admin endpoint for retrieving uploaded identity documents from private Cloudinary storage.
@@ -11,19 +10,14 @@
 
 ## Setup
 1. Open a terminal in `NUKBackend-main`.
-2. Copy `.env.example` to `.env` and fill in your own MongoDB URI, two independent JWT secrets (each at least 32 characters), SMTP settings, and Cloudinary credentials.
-3. For Gmail SMTP, enable 2-Step Verification and create a Google App Password. Put it in `SMTP_PASS`; never use your regular Gmail password.
+2. Configure MongoDB, two independent JWT secrets (each at least 32 characters), and Cloudinary credentials.
+3. Configure `BREVO_API_KEY` and `EMAIL_FROM` for customer-registration OTP and password-reset email delivery.
 4. Run `npm install`.
 5. Set `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PHONE`, and a unique `ADMIN_PASSWORD` of at least 12 characters in `.env`.
 6. Run `npm run create-admin` once. The script refuses to promote an existing non-admin account.
 7. Run `npm run dev`.
 8. Serve `NUKFrontend-main` using VS Code Live Server. Add the exact frontend origin to `CLIENT_ORIGIN` if it is not already listed in the backend CORS configuration.
 9. Open `admin-login.html` to sign in as the administrator.
-
-## OTP endpoints
-- `POST /api/v1/auth/send-otp` with `{ "email": "user@example.com", "purpose": "provider-registration" }` or `customer-registration`.
-- `POST /api/v1/auth/verify-otp` with `{ "email": "user@example.com", "otp": "123456", "purpose": "provider-registration" }` or `customer-registration`.
-- Registration must include the returned `emailVerificationToken`; verification tokens are bound to the email and purpose and are consumed on registration.
 
 ## Admin endpoints
 - `GET /api/v1/admin/provider-applications`
